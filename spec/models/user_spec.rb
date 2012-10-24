@@ -26,6 +26,10 @@ describe User do
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:authenticate) }
+  it { should respond_to(:remember_token) } # for cookies
+  it { should respond_to(:authenticate) }   # for cookies
+
+
 
   it { should be_valid }
 
@@ -44,6 +48,11 @@ describe User do
   describe "when name is too long" do
     before { @user.name = "a" * 51 }
     it { should_not be_valid }
+  end
+
+  describe "remember token" do # making sure there is a token
+    before { @user.save }
+    its(:remember_token) { should_not be_blank }
   end
 
 #  validating email
